@@ -102,14 +102,14 @@ class CreateOrderScreen extends Screen
             'order.delivery_variation_id' => 'required',
             'order.delivery_start' => 'required',
             'order.delivery_end' => 'required',
-//            'days' => 'exclude_if:order.delivery_variation_id,1|required',
+            'days' => 'exclude_if:order.delivery_variation_id,1|required',
         ]);
         $order->fill($req['order'])->save();
         if ($request->input('days')) {
             $order->days()->attach($request->input('days'));
         }
         $scheduleService->setSchedule($order);
-        Alert::info(__('admin.order.success_info'));
+        Alert::info('Заказ успешно создан');
         return redirect()->route('platform.index');
     }
 }
